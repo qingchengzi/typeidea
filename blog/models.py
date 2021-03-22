@@ -23,6 +23,9 @@ class Category(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "分类"
 
+    def __str__(self):
+        return self.name
+
 
 class Tag(models.Model):
     """
@@ -37,14 +40,18 @@ class Tag(models.Model):
     name = models.CharField(max_length=10, verbose_name="名称")
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     owner = models.ForeignKey(User, verbose_name="作者")
-    create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+    created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
         verbose_name = verbose_name_plural = "标签"
 
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     """
+    创建文章
     """
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
@@ -67,3 +74,5 @@ class Post(models.Model):
         verbose_name = verbose_name_plural = "文章"
         ordering = ['-id']  # 根据id进行降序排列
 
+    def __str__(self):
+        return Category.name
